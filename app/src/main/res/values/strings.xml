@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">Controller Hub</string>
+    <string name="wifi_icon">Wi-Fi signal</string>
+    <string name="battery_icon">Battery level</string>
+    <string name="context_icon">Context icon</string>
+</resources>

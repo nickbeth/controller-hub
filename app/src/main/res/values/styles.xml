@@ -1,0 +1,6 @@
+<resources>
+
+    <style name="Widget.Theme.ControllerHub.ActionBar.Fullscreen" parent="Widget.AppCompat.ActionBar">
+        <item name="android:background">@color/white_background</item>
+    </style>
+</resources>

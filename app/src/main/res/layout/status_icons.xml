@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:divider="@drawable/spacer_large"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:showDividers="middle">
+
+    <TextClock
+        android:id="@+id/time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="?attr/textColor"
+        android:textStyle="bold"
+        android:textSize="17sp"
+        tools:text="13:37" />
+
+    <ImageView
+        android:id="@+id/wifi"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:contentDescription="@string/wifi_icon"
+        android:src="@drawable/ic_baseline_wifi_24" />
+
+    <ImageView
+        android:id="@+id/battery"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:contentDescription="@string/battery_icon"
+        android:src="@drawable/ic_round_battery_full_24" />
+</LinearLayout>

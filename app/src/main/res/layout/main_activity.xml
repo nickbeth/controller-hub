@@ -15,6 +15,16 @@
         android:layout_marginVertical="@dimen/activity_vertical_margin"
         tools:context=".MainActivity">
 
+        <ImageView
+            android:id="@+id/exit_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/exit_icon"
+            android:background="?android:attr/selectableItemBackground"
+            android:src="@drawable/ic_baseline_exit_to_app_48"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <include
             android:id="@+id/status_icons"
             layout="@layout/status_icons"
@@ -28,19 +38,52 @@
             android:layout_width="0dp"
             android:layout_height="1dp"
             android:background="?attr/textColor"
-            app:layout_constraintBottom_toTopOf="@+id/imageView2"
+            app:layout_constraintBottom_toTopOf="@+id/context_icon"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/context_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/spacing_large"
-            android:src="@drawable/ic_baseline_videogame_asset_24"
+            android:contentDescription="@string/context_icon"
+            android:src="@drawable/ic_baseline_videogame_asset_48"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:contentDescription="@string/context_icon" />
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:divider="@drawable/spacer_xxlarge"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:showDividers="middle"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <TextView
+                android:id="@+id/slot1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="?attr/textColor"
+                android:textSize="@dimen/text_size"
+                android:background="?android:attr/selectableItemBackground"
+                app:drawableLeftCompat="@drawable/ic_round_battery_full_24"
+                android:drawablePadding="@dimen/spacing_smedium"
+                tools:text="Options" />
+
+            <TextView
+                android:id="@+id/slot0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="?attr/textColor"
+                android:textSize="@dimen/text_size"
+                android:background="?android:attr/selectableItemBackground"
+                app:drawableLeftCompat="@drawable/ic_round_battery_full_24"
+                android:drawablePadding="@dimen/spacing_smedium"
+                tools:text="Start" />
+
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:textColor="?attr/textColor"
         android:textStyle="bold"
-        android:textSize="17sp"
+        android:textSize="@dimen/text_size"
         tools:text="13:37" />
 
     <ImageView

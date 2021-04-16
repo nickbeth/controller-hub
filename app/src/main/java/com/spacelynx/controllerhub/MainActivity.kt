@@ -1,5 +1,6 @@
 package com.spacelynx.controllerhub
 
+import android.bluetooth.BluetoothManager
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.hardware.usb.UsbManager
@@ -35,7 +36,6 @@ class MainActivity : AppCompatActivity() {
 
     binding.contextBar.contextIconError.visibility = View.VISIBLE
 
-    getUsbId()
   }
 
   override fun onResume() {
@@ -44,15 +44,6 @@ class MainActivity : AppCompatActivity() {
 
   }
 
-  private fun getUsbId(){
-    val manager = getSystemService(Context.USB_SERVICE) as UsbManager
-    val deviceList = manager.getDeviceList()
-    /*for ((key, value) in deviceList) {
-      println("$key = $value")
-    }*/
-    deviceList.forEach { (key, value) -> println("$key = $value") }
-
-  }
 
 
   private fun hideSystemUI() {

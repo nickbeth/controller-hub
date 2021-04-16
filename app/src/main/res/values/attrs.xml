@@ -1,6 +1,6 @@
 <resources>
-    <declare-styleable name="FullscreenAttrs">
+    <declare-styleable name="AppAttrs">
         <attr name="backgroundColor" format="color" />
-        <attr name="textColor" format="color" />
+        <attr name="uiColor" format="color" />
     </declare-styleable>
 </resources>

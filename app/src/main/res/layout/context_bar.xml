@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginBottom="@dimen/spacing_small"
-        android:background="?attr/textColor"
+        android:background="?attr/uiColor"
         app:layout_constraintBottom_toTopOf="@+id/context_icon"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -23,8 +23,8 @@
         android:layout_marginStart="@dimen/spacing_large"
         android:fontFamily="@font/controllercons_solid"
         android:text="@string/xbox1x_icon"
-        android:textColor="?attr/textColor"
-        android:textSize="48sp"
+        android:textSize="36sp"
+        android:textColor="?attr/uiColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/context_actions"
         app:layout_constraintHorizontal_bias="0.5"
@@ -44,7 +44,7 @@
         app:layout_constraintVertical_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/context_icon"
         app:layout_constraintTop_toTopOf="@+id/context_icon"
-        tools:visibility="visible" />
+        app:tint="?attr/colorPrimary" />
 
     <LinearLayout
         android:id="@+id/context_actions"
@@ -65,22 +65,20 @@
             android:id="@+id/action1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="?android:attr/selectableItemBackground"
             android:drawablePadding="@dimen/spacing_smedium"
-            android:textColor="?attr/textColor"
-            android:textSize="@dimen/text_size"
-            app:drawableLeftCompat="@drawable/ic_round_battery_full_24"
+            android:textColor="?attr/uiColor"
+            app:drawableLeftCompat="@drawable/ic_button_b_18"
+            app:drawableTint="?attr/uiColor"
             tools:text="@string/options" />
 
         <TextView
             android:id="@+id/action0"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="?android:attr/selectableItemBackground"
             android:drawablePadding="@dimen/spacing_smedium"
-            android:textColor="?attr/textColor"
-            android:textSize="@dimen/text_size"
+            android:textColor="?attr/uiColor"
             app:drawableLeftCompat="@drawable/ic_button_a_18"
+            app:drawableTint="?attr/uiColor"
             tools:text="@string/start" />
 
     </LinearLayout>

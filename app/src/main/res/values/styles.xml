@@ -1,6 +1,5 @@
 <resources>
-
-    <style name="Widget.Theme.ControllerHub.ActionBar.Fullscreen" parent="Widget.AppCompat.ActionBar">
-        <item name="android:background">@color/white_background</item>
+    <style name="Widget.Theme.ControllerHub.TextClock" parent="Theme.ControllerHub">
+        <item name="android:textSize">@dimen/text_size</item>
     </style>
 </resources>

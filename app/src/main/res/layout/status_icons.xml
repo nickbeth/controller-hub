@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -11,11 +12,11 @@
 
     <TextClock
         android:id="@+id/time"
+        style="@style/Widget.Theme.ControllerHub.TextClock"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="?attr/textColor"
         android:textStyle="bold"
-        android:textSize="@dimen/text_size"
+        android:textColor="?attr/uiColor"
         tools:text="13:37" />
 
     <ImageView
@@ -24,7 +25,8 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:contentDescription="@string/wifi_icon"
-        android:src="@drawable/ic_baseline_wifi_24" />
+        android:src="@drawable/ic_baseline_wifi_24"
+        app:tint="?attr/uiColor" />
 
     <ImageView
         android:id="@+id/battery"
@@ -32,5 +34,6 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:contentDescription="@string/battery_icon"
-        android:src="@drawable/ic_round_battery_full_24" />
+        android:src="@drawable/ic_round_battery_full_24"
+        app:tint="?attr/uiColor" />
 </LinearLayout>

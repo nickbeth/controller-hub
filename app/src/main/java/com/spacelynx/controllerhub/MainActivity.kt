@@ -25,13 +25,12 @@ class MainActivity : AppCompatActivity() {
       this.finish()
     }
 
-    binding.slot0.setText("Start")
-    binding.slot0.setOnClickListener {}
-    binding.slot1.setText("Options")
-    binding.slot1.setOnClickListener {}
+    binding.contextBar.action0.text = "Start"
+    binding.contextBar.action0.setOnClickListener {}
+    binding.contextBar.action1.text = "Options"
+    binding.contextBar.action1.setOnClickListener {}
 
-    val slot0Icon: Drawable? = ContextCompat.getDrawable(this, R.drawable.ic_baseline_wifi_24)
-    slot0Icon?.let { binding.slot0.setCompoundDrawablesWithIntrinsicBounds(slot0Icon, null, null, null) }
+    binding.contextBar.contextIconError.visibility = View.VISIBLE
   }
 
   override fun onResume() {
@@ -42,10 +41,10 @@ class MainActivity : AppCompatActivity() {
   private fun hideSystemUI() {
     mainContent.systemUiVisibility =
       View.SYSTEM_UI_FLAG_LOW_PROFILE or
-              View.SYSTEM_UI_FLAG_FULLSCREEN or
-              View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
-              View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY or
-              View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or
-              View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+          View.SYSTEM_UI_FLAG_FULLSCREEN or
+          View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
+          View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY or
+          View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or
+          View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
   }
 }

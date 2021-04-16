@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Controller Hub</string>
     <string name="wifi_icon">Wi-Fi signal</string>
@@ -5,4 +6,11 @@
     <string name="context_icon">Context icon</string>
     <string name="context_button">Context button</string>
     <string name="exit_icon">Exit</string>
+
+    <string name="OK">OK</string>
+    <string name="error">Error</string>
+    <string name="start">Start</string>
+    <string name="options">Options</string>
+
+    <string name="xbox1x_icon">&#xcc027;</string>
 </resources>

@@ -80,7 +80,7 @@
             android:drawablePadding="@dimen/spacing_smedium"
             android:textColor="?attr/textColor"
             android:textSize="@dimen/text_size"
-            app:drawableLeftCompat="@drawable/ic_button_a_24"
+            app:drawableLeftCompat="@drawable/ic_button_a_18"
             tools:text="@string/start" />
 
     </LinearLayout>

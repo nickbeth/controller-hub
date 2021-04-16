@@ -1,8 +1,11 @@
 package com.spacelynx.controllerhub
 
+import android.content.Context
 import android.graphics.drawable.Drawable
+import android.hardware.usb.UsbManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.FrameLayout
 import androidx.core.content.ContextCompat
@@ -31,12 +34,26 @@ class MainActivity : AppCompatActivity() {
     binding.contextBar.action1.setOnClickListener {}
 
     binding.contextBar.contextIconError.visibility = View.VISIBLE
+
+    getUsbId()
   }
 
   override fun onResume() {
     super.onResume()
     hideSystemUI()
+
   }
+
+  private fun getUsbId(){
+    val manager = getSystemService(Context.USB_SERVICE) as UsbManager
+    val deviceList = manager.getDeviceList()
+    /*for ((key, value) in deviceList) {
+      println("$key = $value")
+    }*/
+    deviceList.forEach { (key, value) -> println("$key = $value") }
+
+  }
+
 
   private fun hideSystemUI() {
     mainContent.systemUiVisibility =

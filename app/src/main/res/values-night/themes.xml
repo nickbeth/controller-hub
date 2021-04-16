@@ -1,5 +1,6 @@
 <resources>
     <style name="Theme.ControllerHub" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/nintendo_red</item>
         <item name="backgroundColor">@color/grey_dark</item>
         <item name="uiColor">@android:color/white</item>
     </style>

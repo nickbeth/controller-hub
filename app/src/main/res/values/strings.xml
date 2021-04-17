@@ -12,5 +12,20 @@
     <string name="start">Start</string>
     <string name="options">Options</string>
 
-    <string name="xbox1x_icon">󌀧</string>
+    <!-- Controller Icons - Controllercons font -->
+    <string name="cc_nes">󌀐</string>
+    <string name="cc_snes">󌀗</string>
+    <string name="cc_xbox_360">󌀥</string>
+    <string name="cc_xbox_one">󌀧</string>
+    <string name="cc_xbox_series_x">󌀨</string>
+    <string name="cc_ps3">󌀓</string>
+    <string name="cc_ps4">󌀔</string>
+    <string name="cc_ps5">󌀕</string>
+    <string name="cc_wii">󌀤</string>
+    <string name="cc_wii_u">󌀣</string>
+    <string name="cc_joy_con_l">󌀄</string>
+    <string name="cc_joy_con_r">󌀅</string>
+    <string name="cc_joy_cons">󌀆</string>
+    <string name="cc_switch_pro">󌀙</string>
+    <string name="cc_stadia">󌀘</string>
 </resources>

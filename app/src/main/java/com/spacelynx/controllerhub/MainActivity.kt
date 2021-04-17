@@ -1,15 +1,9 @@
 package com.spacelynx.controllerhub
 
-import android.bluetooth.BluetoothManager
-import android.content.Context
-import android.graphics.drawable.Drawable
-import android.hardware.usb.UsbManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.FrameLayout
-import androidx.core.content.ContextCompat
 import com.spacelynx.controllerhub.databinding.MainActivityBinding
 
 class MainActivity : AppCompatActivity() {
@@ -34,8 +28,7 @@ class MainActivity : AppCompatActivity() {
     binding.contextBar.action1.text = "Options"
     binding.contextBar.action1.setOnClickListener {}
 
-    binding.contextBar.contextIconError.visibility = View.VISIBLE
-
+    binding.contextBar.contextIcon.text = resources.getString(R.string.cc_wii_u)
   }
 
   override fun onResume() {
@@ -43,8 +36,6 @@ class MainActivity : AppCompatActivity() {
     hideSystemUI()
 
   }
-
-
 
   private fun hideSystemUI() {
     mainContent.systemUiVisibility =

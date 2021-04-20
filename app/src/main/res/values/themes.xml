@@ -5,6 +5,7 @@
         <item name="colorPrimary">@color/nintendo_red</item>
         <item name="backgroundColor">@color/white_background</item>
         <item name="uiColor">@color/grey_dark</item>
+        <item name="textColor">@color/grey_dark</item>
     </style>
 
     <style name="Theme.ControllerHub.MainActivity" parent="Theme.ControllerHub">

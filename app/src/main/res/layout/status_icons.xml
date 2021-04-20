@@ -20,7 +20,7 @@
         tools:text="13:37" />
 
     <ImageView
-        android:id="@+id/wifi"
+        android:id="@+id/network"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"

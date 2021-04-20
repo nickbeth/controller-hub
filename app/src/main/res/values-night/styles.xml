@@ -1,0 +1,5 @@
+<resources>
+    <style name="Widget.Theme.ControllerHub.AppListColors" parent="Widget.Theme.ControllerHub.AppList">
+        <item name="cardBackgroundColor">#424242</item>
+    </style>
+</resources>

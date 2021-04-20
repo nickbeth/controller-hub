@@ -6,6 +6,7 @@
     <string name="context_icon">Context icon</string>
     <string name="context_button">Context button</string>
     <string name="exit_icon">Exit</string>
+    <string name="app_banner">Application banner</string>
 
     <string name="OK">OK</string>
     <string name="error">Error</string>

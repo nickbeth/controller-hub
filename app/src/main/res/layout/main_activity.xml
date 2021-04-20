@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     android:background="?attr/backgroundColor"
-    tools:context=".MainActivity">
+    tools:context=".main.MainActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -35,12 +35,12 @@
             android:background="?android:attr/selectableItemBackground"
             android:contentDescription="@string/exit_icon"
             android:src="@drawable/ic_baseline_exit_to_app_48"
-            app:tint="?attr/uiColor"
             app:layout_constraintEnd_toStartOf="@+id/status_icons"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="?attr/uiColor" />
 
         <include
             android:id="@+id/context_bar"
@@ -50,4 +50,18 @@
             app:layout_constraintBottom_toBottomOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/app_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/app_list_padding"
+        android:clipToPadding="false"
+        android:orientation="horizontal"
+        android:overScrollMode="never"
+        android:scrollbars="none"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:layout_gravity="center"
+        tools:layout_height="180dp" />
+
 </FrameLayout>

@@ -2,4 +2,15 @@
     <style name="Widget.Theme.ControllerHub.TextClock" parent="Theme.ControllerHub">
         <item name="android:textSize">@dimen/text_size</item>
     </style>
+
+    <style name="Widget.Theme.ControllerHub.AppList" parent="CardView">
+        <item name="cardCornerRadius">@dimen/appListCornerRadius</item>
+        <item name="cardElevation">@dimen/appListElevation</item>
+        <item name="android:layout_marginHorizontal">@dimen/spacing_small</item>
+        <item name="android:layout_marginVertical">@dimen/spacing_medium</item>
+    </style>
+
+    <style name="Widget.Theme.ControllerHub.AppListColors" parent="Widget.Theme.ControllerHub.AppList">
+        <item name="cardBackgroundColor">#F1F1F1</item>
+    </style>
 </resources>

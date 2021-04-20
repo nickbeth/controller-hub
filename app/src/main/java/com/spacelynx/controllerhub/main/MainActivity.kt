@@ -1,9 +1,10 @@
 package com.spacelynx.controllerhub.main
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.FrameLayout
+import androidx.appcompat.app.AppCompatActivity
+
 import com.spacelynx.controllerhub.R
 import com.spacelynx.controllerhub.databinding.MainActivityBinding
 import com.spacelynx.controllerhub.ui.ContextBar
@@ -19,13 +20,20 @@ class MainActivity : AppCompatActivity() {
   private var shouldAllowBack = false
 
   override fun onCreate(savedInstanceState: Bundle?) {
+    if (!isTaskRoot) {
+      // Android launched another instance of the root activity into an existing task
+      // so just quietly finish and go away, dropping the user back into the activity
+      // at the top of the stack (ie: the last state of this task)
+      finish()
+      return
+    }
     super.onCreate(savedInstanceState)
 
     binding = MainActivityBinding.inflate(layoutInflater)
     setContentView(binding.root)
     mainContent = binding.mainContent
 
-    binding.exitIcon.setOnClickListener { this.finish() }
+    binding.exitIcon.setOnClickListener { finish() }
 
     statusIcons = StatusIcons(binding.statusIcons)
 

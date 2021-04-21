@@ -22,14 +22,14 @@ class UsbBroadcastReceiver : BroadcastReceiver() {
     if (intent.action == UsbManager.ACTION_USB_DEVICE_ATTACHED) {
       val device = intent.getParcelableExtra<UsbDevice>(UsbManager.EXTRA_DEVICE)
       Toast.makeText(context, device?.productName + " connected.", Toast.LENGTH_SHORT).show()
+      val deviceName = device?.let { getName(it) }
 
       val launchActivity = {
         ControllerHelper.getGameControllerIds().forEach { deviceId ->
-          device?.let { itt -> getName(itt) }
-            ?.let { Log.d(TAG, it + " == " + InputDevice.getDevice(deviceId).name) }
+          Log.d(TAG, deviceName + " ?= " + InputDevice.getDevice(deviceId).name)
 
-          if (device?.let { getName(it) } == InputDevice.getDevice(deviceId).name) {
-            Log.d(TAG, "Starting activity")
+          if (deviceName == InputDevice.getDevice(deviceId).name) {
+            Log.v(TAG, "Controller plugged in, starting activity")
             val startIntent = context.packageManager.getLaunchIntentForPackage(context.packageName)
 
             startIntent?.flags = Intent.FLAG_ACTIVITY_REORDER_TO_FRONT or

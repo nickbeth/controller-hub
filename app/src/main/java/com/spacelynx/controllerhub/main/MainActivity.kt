@@ -20,6 +20,7 @@ class MainActivity : AppCompatActivity() {
   private var shouldAllowBack = false
 
   override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
     if (!isTaskRoot) {
       // Android launched another instance of the root activity into an existing task
       // so just quietly finish and go away, dropping the user back into the activity
@@ -27,7 +28,6 @@ class MainActivity : AppCompatActivity() {
       finish()
       return
     }
-    super.onCreate(savedInstanceState)
 
     binding = MainActivityBinding.inflate(layoutInflater)
     setContentView(binding.root)
@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity() {
 
     val applist = listOf(
         AppItem("Netflix", null),
-        AppItem("Spotify", null),
+        AppItem("The Legend of Zelda: Breath of the Wild", null),
         AppItem("Super Mario Galaxy", null),
         AppItem("Super Mario Odyssey", null),
         AppItem("Skyline", null),

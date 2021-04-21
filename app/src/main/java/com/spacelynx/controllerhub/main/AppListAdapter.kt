@@ -22,7 +22,6 @@ class AppListAdapter(private val appList: List<AppItem>) :
   override fun onBindViewHolder(holder: AppListViewHolder, position: Int) {
     with(holder) {
       with(appList[position]) {
-        binding.title.text = title
         binding.icon.setImageBitmap(icon)
 
         holder.itemView.setOnClickListener {

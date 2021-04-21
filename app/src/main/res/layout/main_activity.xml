@@ -13,7 +13,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
-        android:layout_marginVertical="@dimen/activity_vertical_margin">
+        android:layout_marginTop="@dimen/activity_margin_top"
+        android:layout_marginBottom="@dimen/activity_margin_bottom">
 
         <include
             android:id="@+id/status_icons"
@@ -34,7 +35,8 @@
             android:layout_marginStart="@dimen/spacing_medium"
             android:background="?android:attr/selectableItemBackground"
             android:contentDescription="@string/exit_icon"
-            android:src="@drawable/ic_baseline_exit_to_app_48"
+            android:src="@drawable/ic_baseline_exit_36"
+            android:focusable="false"
             app:layout_constraintEnd_toStartOf="@+id/status_icons"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintHorizontal_chainStyle="spread_inside"

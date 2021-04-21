@@ -29,7 +29,6 @@ class ControllerHelper {
     }
 
     fun getControllerIcon(context: Context, deviceId: Int): String {
-      val controllerIds = getGameControllerIds()
       var vendorId = InputDevice.getDevice(deviceId).vendorId
       var productId = InputDevice.getDevice(deviceId).productId
 
@@ -150,26 +149,26 @@ class ControllerHelper {
 
   fun getControllerIcons(context: Context): String {
     val controllerIds = getGameControllerIds()
-    var glyphs: String = ""
+    var glyphs = ""
     var newIcon: String
-    var vendorId: Int
-    var productId: Int
 
     controllerIds.forEach() { deviceId ->
-      vendorId = InputDevice.getDevice(deviceId).vendorId
-      productId = InputDevice.getDevice(deviceId).productId
+      var device = InputDevice.getDevice(deviceId)
+      var isInCache: Boolean = false
       controllerCache.forEach() { controller ->
-        if (vendorId == controller.vid && productId == controller.pid) {
+        if (device.vendorId == controller.vid && device.productId == controller.pid) {
           //cache hit
+          isInCache = true
           glyphs += controller.glyph
-        } else {
-          //cache miss
-          newIcon = getControllerIcon(context, deviceId)
-          addControllerToCache(vendorId, productId, newIcon)
-          glyphs += newIcon
+          return@forEach
         }
       }
-
+      //cache miss
+      if (isInCache == false) {
+        newIcon = getControllerIcon(context, deviceId)
+        addControllerToCache(device.vendorId, device.productId, newIcon)
+        glyphs += newIcon
+      }
     }
     return glyphs
   }

@@ -1,14 +1,15 @@
 package com.spacelynx.controllerhub.util
 
 import android.content.Context
+import android.service.controls.Control
 import android.view.InputDevice
 import com.spacelynx.controllerhub.R
 
 class ControllerHelper {
-  lateinit var controllerCache: MutableSet<ControllerCacheEntry>
+  private lateinit var controllerCache: HashMap<ControllerCacheEntry, String>
 
   companion object {
-    fun getGameControllerIds(): List<Int> {
+    private fun getGameControllerIds(): List<Int> {
       val gameControllerDeviceIds = mutableListOf<Int>()
       val deviceIds = InputDevice.getDeviceIds()
       deviceIds.forEach { deviceId ->
@@ -28,7 +29,7 @@ class ControllerHelper {
       return gameControllerDeviceIds
     }
 
-    fun getControllerIcon(context: Context, deviceId: Int): String {
+    private fun getControllerIcon(context: Context, deviceId: Int): String {
       var vendorId = InputDevice.getDevice(deviceId).vendorId
       var productId = InputDevice.getDevice(deviceId).productId
 
@@ -154,17 +155,11 @@ class ControllerHelper {
 
     controllerIds.forEach() { deviceId ->
       var device = InputDevice.getDevice(deviceId)
-      var isInCache: Boolean = false
-      controllerCache.forEach() { controller ->
-        if (device.vendorId == controller.vid && device.productId == controller.pid) {
-          //cache hit
-          isInCache = true
-          glyphs += controller.glyph
-          return@forEach
-        }
-      }
-      //cache miss
-      if (isInCache == false) {
+      if (controllerCache.contains(ControllerCacheEntry(device.vendorId, device.productId))) {
+        //cache hit
+        glyphs += controllerCache[ControllerCacheEntry(device.vendorId, device.productId)]
+      } else {
+        //cache miss
         newIcon = getControllerIcon(context, deviceId)
         addControllerToCache(device.vendorId, device.productId, newIcon)
         glyphs += newIcon
@@ -174,10 +169,10 @@ class ControllerHelper {
   }
 
   private fun addControllerToCache(vid: Int, pid: Int, glyph: String) {
-    controllerCache.add(ControllerCacheEntry(vid, pid, glyph))
+    controllerCache.put(ControllerCacheEntry(vid, pid), glyph)
     //chiamo funzione per salvare la cache?
   }
 
 }
 
-data class ControllerCacheEntry(val vid: Int, val pid: Int, val glyph: String)
+data class ControllerCacheEntry(val vid: Int, val pid: Int)

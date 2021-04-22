@@ -6,6 +6,8 @@ import android.view.InputDevice
 import com.spacelynx.controllerhub.R
 
 class ControllerHelper {
+  data class ControllerCacheEntry(val vid: Int, val pid: Int)
+
   private lateinit var controllerCache: HashMap<ControllerCacheEntry, String>
 
   companion object {
@@ -173,6 +175,9 @@ class ControllerHelper {
     //chiamo funzione per salvare la cache?
   }
 
+  private fun flushControllerCache() {
+    controllerCache.clear()
+  }
+
 }
 
-data class ControllerCacheEntry(val vid: Int, val pid: Int)

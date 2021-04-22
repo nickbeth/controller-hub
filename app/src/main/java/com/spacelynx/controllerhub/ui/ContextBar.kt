@@ -1,15 +1,23 @@
 package com.spacelynx.controllerhub.ui
 
+import android.content.Context
 import android.widget.TextView
 import android.graphics.drawable.Drawable
+
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
+
+import com.spacelynx.controllerhub.util.ControllerHelper
 import com.spacelynx.controllerhub.databinding.ContextBarBinding
 
 class ContextBar(contextBarBinding: ContextBarBinding) {
   private val contextIcon: TextView = contextBarBinding.contextIcon
   private val action0: TextView = contextBarBinding.action0
   private val action1: TextView = contextBarBinding.action1
+
+  fun updateContextIcon(context: Context) {
+    contextIcon.text = ControllerHelper.getControllerIcons(context)
+  }
 
   fun setContextIcon(@StringRes stringResId: Int) {
     contextIcon.setText(stringResId)

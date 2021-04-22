@@ -16,10 +16,11 @@ import android.util.Log
 import com.spacelynx.controllerhub.util.ControllerHelper
 
 private const val TAG = "UsbBroadcastReceiver"
+private const val AUTO_LAUNCH = false
 
 class UsbBroadcastReceiver : BroadcastReceiver() {
   override fun onReceive(context: Context, intent: Intent) {
-    if (intent.action == UsbManager.ACTION_USB_DEVICE_ATTACHED) {
+    if (AUTO_LAUNCH && intent.action == UsbManager.ACTION_USB_DEVICE_ATTACHED) {
       val device = intent.getParcelableExtra<UsbDevice>(UsbManager.EXTRA_DEVICE)
       Toast.makeText(context, device?.productName + " connected.", Toast.LENGTH_SHORT).show()
       val deviceName = device?.let { getName(it) }

@@ -38,7 +38,8 @@ class MainActivity : AppCompatActivity() {
     statusIcons = StatusIcons(binding.statusIcons)
 
     contextBar = ContextBar(binding.contextBar)
-    contextBar.setContextIcon(R.string.cc_xbox_one)
+    contextBar.updateContextIcon(this)
+    contextBar.contextIcon = ""
     contextBar.setContextActions(
         R.string.OK,
         R.drawable.ic_button_a_18,

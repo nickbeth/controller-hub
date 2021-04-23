@@ -26,18 +26,21 @@ class UsbBroadcastReceiver : BroadcastReceiver() {
       val deviceName = device?.let { getName(it) }
 
       val launchActivity = {
-        ControllerHelper.getGameControllerIds().forEach { deviceId ->
-          Log.d(TAG, deviceName + " ?= " + InputDevice.getDevice(deviceId).name)
+        ControllerHelper.getGameControllerIds().run {
+          forEach { deviceId ->
+            Log.d(TAG, deviceName + " ?= " + InputDevice.getDevice(deviceId).name)
 
-          if (deviceName == InputDevice.getDevice(deviceId).name) {
-            Log.v(TAG, "Controller plugged in, starting activity")
-            val startIntent = context.packageManager.getLaunchIntentForPackage(context.packageName)
+            if (deviceName == InputDevice.getDevice(deviceId).name) {
+              Log.v(TAG, "Controller plugged in, starting activity")
+              val startIntent =
+                context.packageManager.getLaunchIntentForPackage(context.packageName)
 
-            startIntent?.flags = Intent.FLAG_ACTIVITY_REORDER_TO_FRONT or
-                Intent.FLAG_ACTIVITY_NEW_TASK or
-                Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED
-            context.startActivity(startIntent)
-            return@forEach
+              startIntent?.flags = Intent.FLAG_ACTIVITY_REORDER_TO_FRONT or
+                  Intent.FLAG_ACTIVITY_NEW_TASK or
+                  Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED
+              context.startActivity(startIntent)
+              return@run
+            }
           }
         }
       }

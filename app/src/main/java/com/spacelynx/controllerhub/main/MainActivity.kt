@@ -10,7 +10,7 @@ import com.spacelynx.controllerhub.databinding.MainActivityBinding
 import com.spacelynx.controllerhub.ui.ContextBar
 import com.spacelynx.controllerhub.ui.StatusIcons
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), MainView {
 
   private lateinit var binding: MainActivityBinding
   private lateinit var mainContent: FrameLayout
@@ -39,7 +39,6 @@ class MainActivity : AppCompatActivity() {
 
     contextBar = ContextBar(binding.contextBar)
     contextBar.updateContextIcon(this)
-    contextBar.contextIcon = ""
     contextBar.setContextActions(
         R.string.OK,
         R.drawable.ic_button_a_18,
@@ -47,16 +46,7 @@ class MainActivity : AppCompatActivity() {
         R.drawable.ic_button_x_18
     )
 
-    val applist = listOf(
-        AppItem("Netflix", null),
-        AppItem("The Legend of Zelda: Breath of the Wild", null),
-        AppItem("Super Mario Galaxy", null),
-        AppItem("Super Mario Odyssey", null),
-        AppItem("Skyline", null),
-        AppItem("Dolphin", null),
-    )
-
-    binding.appList.adapter = AppListAdapter(applist)
+    AppList.loadAppList(this, this)
   }
 
   override fun onResume() {
@@ -71,6 +61,10 @@ class MainActivity : AppCompatActivity() {
   override fun onBackPressed() {
     if (shouldAllowBack)
       super.onBackPressed()
+  }
+
+  override fun onAppListLoad(appList: List<AppList.AppListItem>) {
+    binding.appList.adapter = AppListAdapter(appList)
   }
 
   private fun hideSystemUI() {

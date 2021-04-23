@@ -1,12 +1,13 @@
 package com.spacelynx.controllerhub.main
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.spacelynx.controllerhub.databinding.CardViewBinding
 
-class AppListAdapter(private val appList: List<AppItem>) :
+class AppListAdapter(private val appList: List<AppList.AppListItem>) :
   RecyclerView.Adapter<AppListAdapter.AppListViewHolder>() {
 
   inner class AppListViewHolder(val binding: CardViewBinding) :
@@ -22,13 +23,13 @@ class AppListAdapter(private val appList: List<AppItem>) :
   override fun onBindViewHolder(holder: AppListViewHolder, position: Int) {
     with(holder) {
       with(appList[position]) {
-        binding.icon.setImageBitmap(icon)
+        binding.icon.setImageDrawable(icon)
 
         holder.itemView.setOnClickListener {
-          Toast.makeText(
-              holder.itemView.context, title,
-              Toast.LENGTH_SHORT
-          ).show()
+          startIntent.flags = Intent.FLAG_ACTIVITY_REORDER_TO_FRONT or
+              Intent.FLAG_ACTIVITY_NEW_TASK or
+              Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED
+          it.context.startActivity(startIntent)
         }
       }
     }

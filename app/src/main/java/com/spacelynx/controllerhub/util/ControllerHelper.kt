@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.InputDevice
 import com.spacelynx.controllerhub.R
 
+private const val MAX_ICON_COUNT = 4
 object ControllerHelper {
   data class ControllerObject(val vid: Int, val pid: Int)
 
@@ -157,18 +158,18 @@ object ControllerHelper {
   fun getControllerIcons(context: Context): String {
     val controllerIds = getGameControllerIds()
     val controllerIcons = StringBuilder()
-
+    var iconCount = 0
     controllerIds.forEach { deviceId ->
       val device = InputDevice.getDevice(deviceId)
       val controllerObj = ControllerObject(device.vendorId, device.productId)
       var controllerIcon = iconCache[controllerObj]
-
+      iconCount++
       if (controllerIcon == null) {
         //cache miss
         controllerIcon = getControllerIcon(context, deviceId)
         iconCache[controllerObj] = controllerIcon
       }
-      controllerIcons.append(controllerIcon).append(" ")
+      if (iconCount <= MAX_ICON_COUNT) controllerIcons.append(controllerIcon).append(" ")
     }
     return controllerIcons.toString()
   }

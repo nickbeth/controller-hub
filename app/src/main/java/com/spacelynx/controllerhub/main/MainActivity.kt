@@ -36,9 +36,9 @@ class MainActivity : AppCompatActivity(), MainView {
     binding.exitIcon.setOnClickListener { finish() }
 
     statusIcons = StatusIcons(binding.statusIcons)
-
     contextBar = ContextBar(binding.contextBar)
-    contextBar.updateContextIcon(this)
+
+    onContextIconUpdate()
     contextBar.setContextActions(
         R.string.OK,
         R.drawable.ic_button_a_18,
@@ -65,6 +65,10 @@ class MainActivity : AppCompatActivity(), MainView {
 
   override fun onAppListLoad(appList: List<AppList.AppListItem>) {
     binding.appList.adapter = AppListAdapter(appList)
+  }
+
+  override fun onContextIconUpdate() {
+    contextBar.updateContextIcon(this)
   }
 
   private fun hideSystemUI() {

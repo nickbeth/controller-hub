@@ -25,7 +25,11 @@ class ContextBarViewModel : ViewModel(), GamepadStatusListener {
     MutableLiveData<Drawable>()
   }
 
+  fun updateContextIcon() {
+    contextIcon.postValue(ControllerHelper.getControllerIcons())
+  }
+
   override fun onGamepadStatusEvent() {
-    contextIcon.value = ControllerHelper.getControllerIcons()
+    updateContextIcon()
   }
 }

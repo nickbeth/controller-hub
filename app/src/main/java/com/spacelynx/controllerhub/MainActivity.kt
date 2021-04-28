@@ -56,7 +56,7 @@ class MainActivity : AppCompatActivity() {
       binding.contextBar.action1.setCompoundDrawablesWithIntrinsicBounds(it, null, null, null)
     })
 
-    contextBarModel.onGamepadStatusEvent()
+    contextBarModel.updateContextIcon()
 
     gamepadStatusReceiver = GamepadStatusReceiver(contextBarModel)
     val filter = IntentFilter().apply {

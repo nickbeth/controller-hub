@@ -5,16 +5,22 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 
-import com.spacelynx.controllerhub.ui.ContextBar
-import com.spacelynx.controllerhub.main.ContextBarListener
+import android.content.IntentFilter
+import android.hardware.usb.UsbManager
+import android.bluetooth.BluetoothDevice
+import android.content.BroadcastReceiver
+import com.spacelynx.controllerhub.receivers.GamepadStatusReceiver
 
+import androidx.activity.viewModels
+import com.spacelynx.controllerhub.viewmodels.ContextBarViewModel
 import com.spacelynx.controllerhub.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity(), ContextBarListener {
+class MainActivity : AppCompatActivity() {
 
   private lateinit var binding: ActivityMainBinding
   private lateinit var mainContent: ConstraintLayout
-  private lateinit var contextBar: ContextBar
+  private val contextBarModel: ContextBarViewModel by viewModels()
+  private lateinit var gamepadStatusReceiver: BroadcastReceiver
 
   private var shouldAllowBack = false
 
@@ -31,20 +37,45 @@ class MainActivity : AppCompatActivity(), ContextBarListener {
     binding = ActivityMainBinding.inflate(layoutInflater)
     setContentView(binding.root)
     mainContent = binding.mainContent
-    contextBar = ContextBar(binding.contextBar)
 
-    onContextIconUpdate()
-    contextBar.setContextActions(
-        R.string.OK,
-        R.drawable.ic_button_a_18,
-        R.string.options,
-        R.drawable.ic_button_x_18
-    )
+    contextBarModel.contextIcon.observe(this, {
+      binding.contextBar.contextIcon.text = it
+    })
+
+    contextBarModel.action0text.observe(this, {
+      binding.contextBar.action0.text = it
+    })
+    contextBarModel.action0drawable.observe(this, {
+      binding.contextBar.action0.setCompoundDrawablesWithIntrinsicBounds(it, null, null, null)
+    })
+
+    contextBarModel.action1text.observe(this, {
+      binding.contextBar.action1.text = it
+    })
+    contextBarModel.action1drawable.observe(this, {
+      binding.contextBar.action1.setCompoundDrawablesWithIntrinsicBounds(it, null, null, null)
+    })
+
+    contextBarModel.onGamepadStatusEvent()
+
+    gamepadStatusReceiver = GamepadStatusReceiver(contextBarModel)
+    val filter = IntentFilter().apply {
+      addAction(UsbManager.ACTION_USB_DEVICE_ATTACHED)
+      addAction(UsbManager.ACTION_USB_DEVICE_DETACHED)
+      addAction(BluetoothDevice.ACTION_ACL_CONNECTED)
+      addAction(BluetoothDevice.ACTION_ACL_DISCONNECTED)
+    }
+    registerReceiver(gamepadStatusReceiver, filter)
   }
 
   override fun onResume() {
     super.onResume()
     hideSystemUI()
+  }
+
+  override fun onDestroy() {
+    super.onDestroy()
+    unregisterReceiver(gamepadStatusReceiver)
   }
 
   /**
@@ -54,10 +85,6 @@ class MainActivity : AppCompatActivity(), ContextBarListener {
   override fun onBackPressed() {
     if (shouldAllowBack)
       super.onBackPressed()
-  }
-
-  override fun onContextIconUpdate() {
-    contextBar.updateContextIcon(this)
   }
 
   private fun hideSystemUI() {

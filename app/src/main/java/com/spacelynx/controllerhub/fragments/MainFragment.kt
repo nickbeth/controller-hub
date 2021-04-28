@@ -39,7 +39,6 @@ class MainFragment : Fragment() {
       activity?.finish()
     }
 
-
     lifecycleScope.launch {
       var appListAdapter: AppListAdapter?
       withContext(Dispatchers.Default) {

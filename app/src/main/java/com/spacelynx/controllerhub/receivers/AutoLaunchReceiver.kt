@@ -16,7 +16,7 @@ import com.spacelynx.controllerhub.utils.ControllerHelper
 
 private const val TAG = "AutoLaunchReceiver"
 private const val AUTO_LAUNCH = false
-private const val DETECTION_DELAY: Long = 100
+private const val DETECTION_DELAY: Long = 150
 
 class AutoLaunchReceiver : BroadcastReceiver() {
   override fun onReceive(context: Context, intent: Intent) {

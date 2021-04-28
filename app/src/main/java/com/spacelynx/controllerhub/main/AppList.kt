@@ -11,7 +11,7 @@ import android.util.Log
 private const val TAG = "AppListBuilder"
 
 object AppList {
-  private fun getInstalledApps(context: Context): List<AppListItem> {
+  fun getInstalledApps(context: Context): List<AppListItem> {
     val packageManager: PackageManager = context.packageManager
     val filteredPackages: MutableList<AppListItem> = mutableListOf()
     val defaultActivityIcon = packageManager.defaultActivityIcon
@@ -38,9 +38,9 @@ object AppList {
     return filteredPackages
   }
 
-  fun loadAppList(context: Context, listener: MainView) {
+  fun loadAppList(context: Context) {
     // Make this run on a new thread if necessary
-    listener.onAppListLoad(getInstalledApps(context))
+    getInstalledApps(context)
   }
 
   data class AppListItem(val title: String, val icon: Drawable, val startIntent: Intent)

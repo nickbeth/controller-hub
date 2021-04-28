@@ -29,4 +29,6 @@
     <string name="cc_joy_cons">󌀆</string>
     <string name="cc_switch_pro">󌀙</string>
     <string name="cc_stadia">󌀘</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

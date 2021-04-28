@@ -1,21 +1,20 @@
-package com.spacelynx.controllerhub.main
+package com.spacelynx.controllerhub
 
 import android.os.Bundle
 import android.view.View
-import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 
-import com.spacelynx.controllerhub.R
-import com.spacelynx.controllerhub.databinding.MainActivityBinding
 import com.spacelynx.controllerhub.ui.ContextBar
-import com.spacelynx.controllerhub.ui.StatusIcons
+import com.spacelynx.controllerhub.main.ContextBarListener
 
-class MainActivity : AppCompatActivity(), MainView {
+import com.spacelynx.controllerhub.databinding.ActivityMainBinding
 
-  private lateinit var binding: MainActivityBinding
-  private lateinit var mainContent: FrameLayout
+class MainActivity : AppCompatActivity(), ContextBarListener {
+
+  private lateinit var binding: ActivityMainBinding
+  private lateinit var mainContent: ConstraintLayout
   private lateinit var contextBar: ContextBar
-  private lateinit var statusIcons: StatusIcons
 
   private var shouldAllowBack = false
 
@@ -29,13 +28,9 @@ class MainActivity : AppCompatActivity(), MainView {
       return
     }
 
-    binding = MainActivityBinding.inflate(layoutInflater)
+    binding = ActivityMainBinding.inflate(layoutInflater)
     setContentView(binding.root)
     mainContent = binding.mainContent
-
-    binding.exitIcon.setOnClickListener { finish() }
-
-    statusIcons = StatusIcons(binding.statusIcons)
     contextBar = ContextBar(binding.contextBar)
 
     onContextIconUpdate()
@@ -45,8 +40,6 @@ class MainActivity : AppCompatActivity(), MainView {
         R.string.options,
         R.drawable.ic_button_x_18
     )
-
-    AppList.loadAppList(this, this)
   }
 
   override fun onResume() {
@@ -63,10 +56,6 @@ class MainActivity : AppCompatActivity(), MainView {
       super.onBackPressed()
   }
 
-  override fun onAppListLoad(appList: List<AppList.AppListItem>) {
-    binding.appList.adapter = AppListAdapter(appList)
-  }
-
   override fun onContextIconUpdate() {
     contextBar.updateContextIcon(this)
   }
@@ -80,5 +69,4 @@ class MainActivity : AppCompatActivity(), MainView {
           View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or
           View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
   }
-
 }

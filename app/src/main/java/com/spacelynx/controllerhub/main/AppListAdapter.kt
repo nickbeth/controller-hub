@@ -3,18 +3,17 @@ package com.spacelynx.controllerhub.main
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.spacelynx.controllerhub.databinding.CardViewBinding
+import com.spacelynx.controllerhub.databinding.CardViewAppListBinding
 
 class AppListAdapter(private val appList: List<AppList.AppListItem>) :
   RecyclerView.Adapter<AppListAdapter.AppListViewHolder>() {
 
-  inner class AppListViewHolder(val binding: CardViewBinding) :
+  inner class AppListViewHolder(val binding: CardViewAppListBinding) :
     RecyclerView.ViewHolder(binding.root)
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AppListViewHolder {
-    val binding = CardViewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+    val binding = CardViewAppListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
     return AppListViewHolder(binding)
   }
 

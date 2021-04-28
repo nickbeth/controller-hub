@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="activity_horizontal_margin">18dp</dimen>
-    <dimen name="activity_margin_top">18dp</dimen>
-    <dimen name="activity_margin_bottom">8dp</dimen>
+    <dimen name="fragment_horizontal_margin">18dp</dimen>
+    <dimen name="fragment_margin_top">18dp</dimen>
+
+    <dimen name="contextbar_margin_horizontal">34dp</dimen>
 
     <dimen name="spacing_xxsmall">2dp</dimen>
     <dimen name="spacing_xsmall">4dp</dimen>
@@ -16,7 +17,7 @@
 
     <dimen name="text_size">18sp</dimen>
     <dimen name="app_list_padding">48dp</dimen>
-    <dimen name="app_list_corner_radius">2dp</dimen>
+    <dimen name="app_list_corner_radius">10dp</dimen>
     <dimen name="app_list_elevation">4dp</dimen>
     <dimen name="app_list_margin_vertical">8dp</dimen> <!-- always double of app_list_elevation -->
 </resources>

@@ -7,7 +7,7 @@ import android.graphics.drawable.Drawable
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 
-import com.spacelynx.controllerhub.util.ControllerHelper
+import com.spacelynx.controllerhub.utils.ControllerHelper
 import com.spacelynx.controllerhub.databinding.ContextBarBinding
 
 class ContextBar(contextBarBinding: ContextBarBinding) {

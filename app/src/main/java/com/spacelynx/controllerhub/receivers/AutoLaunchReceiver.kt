@@ -1,4 +1,4 @@
-package com.spacelynx.controllerhub.receiver
+package com.spacelynx.controllerhub.receivers
 
 import android.os.Handler
 import android.os.Looper
@@ -12,10 +12,11 @@ import android.hardware.usb.UsbManager
 import android.view.InputDevice
 import android.util.Log
 
-import com.spacelynx.controllerhub.util.ControllerHelper
+import com.spacelynx.controllerhub.utils.ControllerHelper
 
 private const val TAG = "AutoLaunchReceiver"
 private const val AUTO_LAUNCH = false
+private const val DETECTION_DELAY: Long = 100
 
 class AutoLaunchReceiver : BroadcastReceiver() {
   override fun onReceive(context: Context, intent: Intent) {
@@ -46,7 +47,7 @@ class AutoLaunchReceiver : BroadcastReceiver() {
         }
       }
       // InputDevices take time to appear when a usb devices is attached
-      Handler(Looper.getMainLooper()).postDelayed(launchActivity, 100)
+      Handler(Looper.getMainLooper()).postDelayed(launchActivity, DETECTION_DELAY)
     }
   }
 

@@ -6,7 +6,7 @@
     <style name="Widget.Theme.ControllerHub.AppList" parent="CardView">
         <item name="cardCornerRadius">@dimen/app_list_corner_radius</item>
         <item name="cardElevation">@dimen/app_list_elevation</item>
-        <item name="android:layout_marginHorizontal">@dimen/spacing_xsmall</item>
+        <item name="android:layout_marginHorizontal">@dimen/spacing_small</item>
         <item name="android:layout_marginVertical">@dimen/app_list_margin_vertical</item>
     </style>
 

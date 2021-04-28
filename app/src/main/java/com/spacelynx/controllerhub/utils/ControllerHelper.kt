@@ -1,4 +1,4 @@
-package com.spacelynx.controllerhub.util
+package com.spacelynx.controllerhub.utils
 
 import kotlin.math.min
 import android.content.Context

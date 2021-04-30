@@ -2,16 +2,9 @@ package com.spacelynx.controllerhub
 
 import android.os.Bundle
 import android.view.View
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
-
-import android.content.IntentFilter
-import android.hardware.usb.UsbManager
-import android.bluetooth.BluetoothDevice
-import android.content.BroadcastReceiver
-import com.spacelynx.controllerhub.receivers.GamepadStatusReceiver
-
-import androidx.activity.viewModels
 import com.spacelynx.controllerhub.viewmodels.ContextBarViewModel
 import com.spacelynx.controllerhub.databinding.ActivityMainBinding
 
@@ -20,7 +13,6 @@ class MainActivity : AppCompatActivity() {
   private lateinit var binding: ActivityMainBinding
   private lateinit var mainContent: ConstraintLayout
   private val contextBarModel: ContextBarViewModel by viewModels()
-  private lateinit var gamepadStatusReceiver: BroadcastReceiver
 
   private var shouldAllowBack = false
 
@@ -56,16 +48,7 @@ class MainActivity : AppCompatActivity() {
       binding.contextBar.action1.setCompoundDrawablesWithIntrinsicBounds(it, null, null, null)
     })
 
-    contextBarModel.updateContextIcon()
-
-    gamepadStatusReceiver = GamepadStatusReceiver(contextBarModel)
-    val filter = IntentFilter().apply {
-      addAction(UsbManager.ACTION_USB_DEVICE_ATTACHED)
-      addAction(UsbManager.ACTION_USB_DEVICE_DETACHED)
-      addAction(BluetoothDevice.ACTION_ACL_CONNECTED)
-      addAction(BluetoothDevice.ACTION_ACL_DISCONNECTED)
-    }
-    registerReceiver(gamepadStatusReceiver, filter)
+    contextBarModel.registerGamepadService(this)
   }
 
   override fun onResume() {
@@ -75,7 +58,7 @@ class MainActivity : AppCompatActivity() {
 
   override fun onDestroy() {
     super.onDestroy()
-    unregisterReceiver(gamepadStatusReceiver)
+    contextBarModel.unregisterGamepadService(this)
   }
 
   /**

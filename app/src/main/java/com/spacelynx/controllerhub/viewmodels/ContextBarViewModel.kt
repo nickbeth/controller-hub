@@ -3,9 +3,14 @@ package com.spacelynx.controllerhub.viewmodels
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.hardware.input.InputManager
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import android.util.Log
+
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+
 import com.spacelynx.controllerhub.utils.ControllerHelper
 
 class ContextBarViewModel : ViewModel(), InputManager.InputDeviceListener {
@@ -28,13 +33,14 @@ class ContextBarViewModel : ViewModel(), InputManager.InputDeviceListener {
   }
 
   fun updateContextIcon() {
-    contextIcon.postValue(ControllerHelper.getControllerIcons())
+    viewModelScope.launch(Dispatchers.Default) {
+      contextIcon.postValue(ControllerHelper.getControllerIcons())
+    }
   }
 
   fun registerGamepadService(context: Context) {
     val inputManager = context.getSystemService(Context.INPUT_SERVICE) as InputManager
     inputManager.registerInputDeviceListener(this, null)
-    updateContextIcon()
   }
 
   fun unregisterGamepadService(context: Context) {

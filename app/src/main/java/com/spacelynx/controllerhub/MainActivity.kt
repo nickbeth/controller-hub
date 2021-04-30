@@ -49,6 +49,7 @@ class MainActivity : AppCompatActivity() {
     })
 
     contextBarModel.registerGamepadService(this)
+    contextBarModel.updateContextIcon()
   }
 
   override fun onResume() {

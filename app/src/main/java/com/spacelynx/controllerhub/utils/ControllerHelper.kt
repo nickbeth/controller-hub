@@ -36,123 +36,79 @@ object ControllerHelper {
     val vendorId = device.vendorId
     val productId = device.productId
 
-    if (vendorId == 0x045E) {//microsoft
-      if (productId == 0x0202 || productId == 0x0285 || productId == 0x0289 || productId == 0x02E6) {
-        //xbox
-        return MainApplication.resources.getString(R.string.cc_xbox_360)
-      } else if (productId == 0x028E || productId == 0x028F || productId == 0x0291 ||
-        productId == 0x02a1 || productId == 0x0719
-      ) {
-        //xbox 360
-        return MainApplication.resources.getString(R.string.cc_xbox_360)
-      } else if (productId == 0x02D1 || productId == 0x02DD || productId == 0x02E3 ||
-        productId == 0x02EA || productId == 0x02FD || productId == 0x02e0 || productId == 0x02ff ||
-        productId == 0x0B12 /*maybe xboxone X controller*/) {
-        //xbox one
-        return MainApplication.resources.getString(R.string.cc_xbox_one)
+    when (vendorId) {
+      // Microsoft
+      0x045e -> when (productId) {
+        0x0202, 0x0285, 0x0289, 0x02e6 -> return MainApplication.resources.getString(R.string.cc_xbox_360)
+        0x028e, 0x028f, 0x0291, 0x02a1, 0x0719 -> return MainApplication.resources.getString(R.string.cc_xbox_360)
+        0x02d1, 0x02dd, 0x02e3, 0x02ea, 0x02fd, 0x02e0, 0x02ff,
+        0x0b12 -> return MainApplication.resources.getString(R.string.cc_xbox_one)
       }
-    } else if (vendorId == 0x046d) {//logitech
-      if (productId == 0xc21d || productId == 0xc21e || productId == 0xc21f || productId == 0xc242) {
-        //xbox360
-        return MainApplication.resources.getString(R.string.cc_xbox_360)
+      // Logitech
+      0x046d -> when (productId) {
+        0xc21d, 0xc21e, 0xc21f, 0xc242 -> return MainApplication.resources.getString(R.string.cc_xbox_360)
       }
-    } else if (vendorId == 0x0079) {//Shenzhen
-      if (productId == 0x18d4) {
-        //xbox360
-        return MainApplication.resources.getString(R.string.cc_xbox_360)
+      // Shenzen
+      0x0079 -> when (productId) {
+        0x18d4 -> return MainApplication.resources.getString(R.string.cc_xbox_360)
       }
-    } else if (vendorId == 0x044f) {//trustmaster
-      if (productId == 0xb326) {
-        //xbox 360
-        return MainApplication.resources.getString(R.string.cc_xbox_360)
-      } else if (productId == 0xb326) {
-        //xbox one
-        return MainApplication.resources.getString(R.string.cc_xbox_one)
+      // Thrustmaster
+      0x044f, 0x24c6 -> when (productId) {
+        0xb326, 0x5300, 0x5303, 0x530a, 0x531a, 0x5397, 0x5500, 0x550d, 0x5b02,
+        0x5d04, 0xfafe -> return MainApplication.resources.getString(R.string.cc_xbox_360)
+        0x541a, 0x542a, 0x543a, 0x551a, 0x561a -> return MainApplication.resources.getString(R.string.cc_xbox_one)
       }
-    } else if (vendorId == 0x056e) {//elecom
-      if (productId == 0x2004) {
-        //xbox 360
-        return MainApplication.resources.getString(R.string.cc_xbox_360)
+      // Elecom
+      0x056e -> when (productId) {
+        0x2004 -> return MainApplication.resources.getString(R.string.cc_xbox_360)
       }
-    } else if (vendorId == 0x06a3) {//saitek
-      if (productId == 0xf51a) {
-        //xbox 360
-        return MainApplication.resources.getString(R.string.cc_xbox_360)
+      // Saitek
+      0x06a3 -> when (productId) {
+        0xf51a -> return MainApplication.resources.getString(R.string.cc_xbox_360)
       }
-    } else if (vendorId == 0x0738) {//mad catz
-      if (productId == 0x4716 || productId == 0x4726 || productId == 0x4736 || productId == 0x4738 ||
-        productId == 0xb726 || productId == 0xbeef || productId == 0xcb02 || productId == 0xcb03
-      ) {
-        //xbox 360
-        return MainApplication.resources.getString(R.string.cc_xbox_360)
+      // Mad Catz
+      0x0738 -> when (productId) {
+        0x4716, 0x4726, 0x4736, 0x4738, 0xb726, 0xbeef, 0xcb02, 0xcb03 -> return MainApplication.resources.getString(
+            R.string.cc_xbox_360
+        )
       }
-    } else if (vendorId == 0x0e6f) {//Logic3
-      if (productId == 0x0113 || productId == 0x011f || productId == 0x0133 || productId == 0x0201 ||
-        productId == 0x0213 || productId == 0x021f || productId == 0x0246 || productId == 0x0301 ||
-        productId == 0x0346 || productId == 0x0346 || productId == 0x0401 || productId == 0x0413 ||
-        productId == 0x0501 || productId == 0xf900
-      ) {
-        //xbox 360
-        return MainApplication.resources.getString(R.string.cc_xbox_360)
-      } else if (productId == 0x0139 || productId == 0x013a || productId == 0x0146 || productId == 0x0147 ||
-        productId == 0x0161 || productId == 0x0162 || productId == 0x0163 || productId == 0x0164 ||
-        productId == 0x0165 || productId == 0x0246 || productId == 0x0346
-      ) {
-        //xbox one
-        return MainApplication.resources.getString(R.string.cc_xbox_one)
+      // Logic3
+      0x0e6f -> when (productId) {
+        0x0113, 0x011f, 0x0133, 0x0201, 0x0213, 0x021f, 0x0246, 0x0301, 0x0346, 0x0401,
+        0x0413, 0x0501, 0xf900 -> return MainApplication.resources.getString(
+            R.string.cc_xbox_360
+        )
+        0x0139, 0x013a, 0x0146, 0x0147, 0x0161, 0x0162, 0x0163, 0x0164,
+        0x0165 -> return MainApplication.resources.getString(R.string.cc_xbox_one)
       }
-    } else if (vendorId == 0x11c9) {//nacon
-      if (productId == 0x55f0) {
-        //xbox 360
-        return MainApplication.resources.getString(R.string.cc_xbox_360)
+      // Nacon
+      0x11c9 -> when (productId) {
+        0x55f0 -> return MainApplication.resources.getString(R.string.cc_xbox_360)
       }
-    } else if (vendorId == 0x1532) {//razer
-      if (productId == 0x0037) {
-        //xbox 360
-        return MainApplication.resources.getString(R.string.cc_xbox_360)
-      } else if (productId == 0x0a03) {
-        ///xbox one
-        return MainApplication.resources.getString(R.string.cc_xbox_one)
+      // Razer
+      0x1532, 0x1689 -> when (productId) {
+        0x0037, 0xfd00, 0xfd01, 0xfe00 -> return MainApplication.resources.getString(R.string.cc_xbox_360)
+        0x0a03 -> return MainApplication.resources.getString(R.string.cc_xbox_one)
       }
-    } else if (vendorId == 0x15e4) {//Numark
-      if (deviceId == 0x3f00 || deviceId == 0x3f0a || deviceId == 0x3f10) {
-        //xbox 360
-        return MainApplication.resources.getString(R.string.cc_xbox_360)
+      // Numark
+      0x15e4 -> when (productId) {
+        0x3f00, 0x3f0a, 0x3f10 -> return MainApplication.resources.getString(R.string.cc_xbox_360)
       }
-    } else if (vendorId == 0x1689) {//Razer again?
-      if (productId == 0xfd00 || productId == 0xfd01 || productId == 0xfe00) {
-        //xbox 360
-        return MainApplication.resources.getString(R.string.cc_xbox_360)
+      // Hamonix Music Systems
+      0x1bad -> when (productId) {
+        0xf016, 0xf021, 0xf023, 0xf025, 0xf027, 0xf036, 0xf501, 0xf900, 0xf901,
+        0xf903, 0xfa01, 0xfd00, 0xfd01 -> return MainApplication.resources.getString(R.string.cc_xbox_360)
       }
-    } else if (vendorId == 0x1bad) {//Harmonix Music Systems
-      if (productId == 0xf016 || productId == 0xf021 || productId == 0xf023 || productId == 0xf025 ||
-        productId == 0xf027 || productId == 0xf036 || productId == 0xf501 || productId == 0xf900 ||
-        productId == 0xf901 || productId == 0xf903 || productId == 0xfa01 || productId == 0xfd00 ||
-        productId == 0xfd01
-      ) {
-        //xbox 360
-        return MainApplication.resources.getString(R.string.cc_xbox_360)
+      // Gamesir
+      0x05ac -> when (productId) {
+        0x3b06 -> return MainApplication.resources.getString(R.string.cc_wii_u)
       }
-    } else if (vendorId == 0x24c6) {//thrustmaster
-      if (productId == 0x5300 || productId == 0x5303 || productId == 0x530a || productId == 0x531a ||
-        productId == 0x5397 || productId == 0x5500 || productId == 0x550d || productId == 0x5b02 ||
-        productId == 0x5d04 || productId == 0xfafe
-      ) {
-        //xbox 360
-        return MainApplication.resources.getString(R.string.cc_xbox_360)
-      } else if (productId == 0x541a || productId == 0x542a || productId == 0x543a || productId == 0x551a ||
-        productId == 0x561a
-      ) {
-        //xbox one
-        return MainApplication.resources.getString(R.string.cc_xbox_one)
-      }
-    } else if (vendorId == 0x05ac) {//Gamesir
-      if (productId == 0x3b06) {
-        //Gamesir X2 Type-C
-        return MainApplication.resources.getString(R.string.cc_wii_u)
+      // Google
+      0x18d1 -> when (productId) {
+        0x9400 -> return MainApplication.resources.getString(R.string.cc_stadia)
       }
     }
-    // default icon
+    // Default (to be changed to a generic one)
     return MainApplication.resources.getString(R.string.cc_xbox_360)
   }
 
@@ -161,17 +117,17 @@ object ControllerHelper {
     val controllerIcons = StringBuilder()
 
     controllerIds.forEachIndexed { index, deviceId ->
-        val device = InputDevice.getDevice(deviceId)
-        val controllerObj = ControllerObject(device.vendorId, device.productId)
-        var controllerIcon = iconCache[controllerObj]
+      val device = InputDevice.getDevice(deviceId)
+      val controllerObj = ControllerObject(device.vendorId, device.productId)
+      var controllerIcon = iconCache[controllerObj]
 
-        if (controllerIcon == null) {
-          //cache miss
-          controllerIcon = getControllerIcon(deviceId)
-          iconCache[controllerObj] = controllerIcon
-        }
-        if (index < MAX_ICON_COUNT) controllerIcons.append(controllerIcon).append(" ")
+      if (controllerIcon == null) {
+        //cache miss
+        controllerIcon = getControllerIcon(deviceId)
+        iconCache[controllerObj] = controllerIcon
       }
+      if (index < MAX_ICON_COUNT) controllerIcons.append(controllerIcon).append(" ")
+    }
     return controllerIcons.toString()
   }
 

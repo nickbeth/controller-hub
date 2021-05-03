@@ -32,6 +32,11 @@ class MainActivity : AppCompatActivity() {
 
     contextBarModel.contextIcon.observe(this, {
       binding.contextBar.contextIcon.text = it
+      if (it.isNullOrBlank()) {
+        binding.contextBar.contextIcon.text = getString(R.string.cc_generic_outline)
+        binding.contextBar.contextIconError.visibility = View.VISIBLE
+      } else
+        binding.contextBar.contextIconError.visibility = View.GONE
     })
 
     contextBarModel.action0text.observe(this, {

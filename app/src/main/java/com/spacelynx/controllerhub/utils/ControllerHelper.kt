@@ -1,6 +1,10 @@
 package com.spacelynx.controllerhub.utils
 
 import android.view.InputDevice
+import android.graphics.Color
+import android.text.Spannable
+import android.text.SpannableStringBuilder
+import android.text.style.ForegroundColorSpan
 import com.spacelynx.controllerhub.MainApplication
 import com.spacelynx.controllerhub.R
 
@@ -108,27 +112,29 @@ object ControllerHelper {
         0x9400 -> return MainApplication.resources.getString(R.string.cc_stadia)
       }
     }
-    // Default (to be changed to a generic one)
-    return MainApplication.resources.getString(R.string.cc_xbox_360)
+    // Default (generic icon)
+    return MainApplication.resources.getString(R.string.cc_generic)
   }
 
-  fun getControllerIcons(): String {
+  fun getControllerIcons(): SpannableStringBuilder {
     val controllerIds = getGameControllerIds()
-    val controllerIcons = StringBuilder()
+    val controllerIcons = SpannableStringBuilder()
 
     controllerIds.forEachIndexed { index, deviceId ->
       val device = InputDevice.getDevice(deviceId)
       val controllerObj = ControllerObject(device.vendorId, device.productId)
       var controllerIcon = iconCache[controllerObj]
+      var color: ForegroundColorSpan? = ForegroundColorSpan(Color.rgb(14, 122, 13))
 
       if (controllerIcon == null) {
         //cache miss
         controllerIcon = getControllerIcon(deviceId)
         iconCache[controllerObj] = controllerIcon
+        color = null
       }
-      if (index < MAX_ICON_COUNT) controllerIcons.append(controllerIcon).append(" ")
+      if (index < MAX_ICON_COUNT) controllerIcons.append(controllerIcon, color, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE).append(" ")
     }
-    return controllerIcons.toString()
+    return controllerIcons
   }
 
   fun flushIconCache() {

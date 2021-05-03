@@ -23,8 +23,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/contextbar_margin_horizontal"
         android:layout_marginBottom="@dimen/spacing_smedium"
-        android:fontFamily="@font/controllercons_solid"
-        tools:text="@string/cc_xbox_one"
+        android:fontFamily="@font/controllercons_solid_custom"
+        tools:text="@string/cc_generic"
         android:textSize="36sp"
         android:textColor="?attr/uiColor"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -38,7 +38,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="@string/error"
-        android:src="@drawable/ic_cross_36"
+        android:src="@drawable/ic_cross_26"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/context_icon"
         app:layout_constraintEnd_toEndOf="@+id/context_icon"
@@ -69,8 +69,8 @@
             android:layout_height="wrap_content"
             android:drawablePadding="@dimen/spacing_small"
             android:textColor="?attr/uiColor"
-            app:drawableLeftCompat="@drawable/ic_button_b_18"
             app:drawableTint="?attr/uiColor"
+            tools:drawableLeftCompat="@drawable/ic_button_b_18"
             tools:text="@string/options" />
 
         <TextView
@@ -79,8 +79,8 @@
             android:layout_height="wrap_content"
             android:drawablePadding="@dimen/spacing_small"
             android:textColor="?attr/uiColor"
-            app:drawableLeftCompat="@drawable/ic_button_a_18"
             app:drawableTint="?attr/uiColor"
+            tools:drawableLeftCompat="@drawable/ic_button_a_18"
             tools:text="@string/start" />
 
     </LinearLayout>

@@ -3,7 +3,12 @@ package com.spacelynx.controllerhub.viewmodels
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.hardware.input.InputManager
+import android.text.SpannableStringBuilder
 import android.util.Log
+import android.view.InputDevice
+import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
+import androidx.core.content.res.ResourcesCompat
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.MutableLiveData
@@ -14,8 +19,8 @@ import kotlinx.coroutines.launch
 import com.spacelynx.controllerhub.utils.ControllerHelper
 
 class ContextBarViewModel : ViewModel(), InputManager.InputDeviceListener {
-  val contextIcon: MutableLiveData<String> by lazy {
-    MutableLiveData<String>()
+  val contextIcon: MutableLiveData<SpannableStringBuilder> by lazy {
+    MutableLiveData<SpannableStringBuilder>()
   }
 
   val action0text: MutableLiveData<String> by lazy {
@@ -30,6 +35,21 @@ class ContextBarViewModel : ViewModel(), InputManager.InputDeviceListener {
   }
   val action1drawable: MutableLiveData<Drawable> by lazy {
     MutableLiveData<Drawable>()
+  }
+
+  fun setContextActions(
+      context: Context,
+      @StringRes action0: Int,
+      @DrawableRes action0icon: Int,
+      @StringRes action1: Int,
+      @DrawableRes action1icon: Int
+  ) {
+    viewModelScope.launch(Dispatchers.Default) {
+      action0text.postValue(context.getString(action0))
+      action0drawable.postValue(ResourcesCompat.getDrawable(context.resources, action0icon, context.theme))
+      action1text.postValue(context.getString(action1))
+      action1drawable.postValue(ResourcesCompat.getDrawable(context.resources, action1icon, context.theme))
+    }
   }
 
   fun updateContextIcon() {
@@ -49,7 +69,7 @@ class ContextBarViewModel : ViewModel(), InputManager.InputDeviceListener {
   }
 
   override fun onInputDeviceAdded(deviceId: Int) {
-    Log.d("InputDeviceListener", "InputDevice added, updating context icon.")
+    Log.d("InputDeviceListener", "InputDevice added, updating context icon: " + InputDevice.getDevice(deviceId)?.name)
     updateContextIcon()
   }
 
@@ -58,8 +78,5 @@ class ContextBarViewModel : ViewModel(), InputManager.InputDeviceListener {
     updateContextIcon()
   }
 
-  override fun onInputDeviceChanged(deviceId: Int) {
-    Log.d("InputDeviceListener", "InputDevice changed, updating context icon.")
-    updateContextIcon()
-  }
+  override fun onInputDeviceChanged(deviceId: Int) {}
 }

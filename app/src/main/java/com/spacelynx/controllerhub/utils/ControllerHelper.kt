@@ -1,26 +1,79 @@
 package com.spacelynx.controllerhub.utils
 
+import java.io.*
+import java.lang.Exception
+
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+
 import android.view.InputDevice
 import android.graphics.Color
+import android.text.Spanned
 import android.text.Spannable
 import android.text.SpannableStringBuilder
 import android.text.style.ForegroundColorSpan
+import androidx.core.text.toSpanned
+import android.util.Log
+
 import com.spacelynx.controllerhub.MainApplication
 import com.spacelynx.controllerhub.R
 
 private const val MAX_ICON_COUNT = 4 - 1 // Used as index so subtract 1 to count
+private const val CACHE_FILE = "icon_cache.dat"
 
 object ControllerHelper {
-  data class ControllerObject(val vid: Int, val pid: Int)
+  data class ControllerObject(val vid: Int, val pid: Int) : Serializable
 
   private var iconCache = HashMap<ControllerObject, String>()
+
+  init {
+    loadCacheFromDisk()
+  }
+
+  private fun loadCacheFromDisk() {
+    try {
+      FileInputStream(File(MainApplication.context.cacheDir, CACHE_FILE)).use { fis ->
+        ObjectInputStream(fis).use { ois ->
+          @Suppress("UNCHECKED_CAST")
+          iconCache = ois.readObject() as HashMap<ControllerObject, String>
+        }
+      }
+      Log.v(javaClass.simpleName, "Loaded icon cache from $CACHE_FILE")
+    } catch (e: FileNotFoundException) {
+      Log.i(javaClass.simpleName, "Cache file not found: $CACHE_FILE, skip loading from disk.")
+    } catch (_: Exception) {
+      Log.e(javaClass.simpleName, "Invalid $CACHE_FILE format, clearing cache.")
+      clearDiskCache()
+    }
+    Log.d(javaClass.simpleName, iconCache.toString())
+  }
+
+  private fun saveCacheToDisk() {
+    try {
+      FileOutputStream(File(MainApplication.context.cacheDir, CACHE_FILE)).use { fos ->
+        ObjectOutputStream(fos).use { oos ->
+          oos.writeObject(iconCache)
+        }
+      }
+      Log.v(javaClass.simpleName, "Saved icon cache to $CACHE_FILE")
+    } catch (_: Exception) {
+      Log.e(javaClass.simpleName, "Could not save cache to $CACHE_FILE")
+    }
+  }
+
+  private fun clearDiskCache() {
+    val cacheFile = File(MainApplication.context.cacheDir, CACHE_FILE)
+    if (cacheFile.exists()) {
+      cacheFile.delete()
+    }
+  }
 
   fun getGameControllerIds(): List<Int> {
     val gameControllerDeviceIds = mutableListOf<Int>()
     val deviceIds = InputDevice.getDeviceIds()
     deviceIds.forEach { deviceId ->
       InputDevice.getDevice(deviceId).apply {
-
         // Verify that the device has gamepad buttons, control sticks, or both.
         if (sources and InputDevice.SOURCE_GAMEPAD == InputDevice.SOURCE_GAMEPAD
           || sources and InputDevice.SOURCE_JOYSTICK == InputDevice.SOURCE_JOYSTICK
@@ -116,7 +169,7 @@ object ControllerHelper {
     return MainApplication.resources.getString(R.string.cc_generic)
   }
 
-  fun getControllerIcons(): SpannableStringBuilder {
+  fun getControllerIcons(): Spanned {
     val controllerIds = getGameControllerIds()
     val controllerIcons = SpannableStringBuilder()
 
@@ -124,20 +177,25 @@ object ControllerHelper {
       val device = InputDevice.getDevice(deviceId)
       val controllerObj = ControllerObject(device.vendorId, device.productId)
       var controllerIcon = iconCache[controllerObj]
-      var color: ForegroundColorSpan? = ForegroundColorSpan(Color.rgb(14, 122, 13))
+      var color: ForegroundColorSpan? = null
 
       if (controllerIcon == null) {
         //cache miss
         controllerIcon = getControllerIcon(deviceId)
         iconCache[controllerObj] = controllerIcon
-        color = null
+        GlobalScope.launch(Dispatchers.IO) { saveCacheToDisk() }
+        color = ForegroundColorSpan(Color.RED)
       }
-      if (index < MAX_ICON_COUNT) controllerIcons.append(controllerIcon, color, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE).append(" ")
+      if (index < MAX_ICON_COUNT) controllerIcons.append(
+          controllerIcon,
+          color,
+          Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+      ).append(" ")
     }
-    return controllerIcons
+    return controllerIcons.toSpanned()
   }
 
-  fun flushIconCache() {
+  fun clearIconCache() {
     iconCache.clear()
   }
 }

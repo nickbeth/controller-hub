@@ -14,26 +14,25 @@ import android.util.Log
 
 import com.spacelynx.controllerhub.utils.ControllerHelper
 
-private const val TAG = "AutoLaunchReceiver"
 private const val AUTO_LAUNCH = false
-private const val DETECTION_DELAY: Long = 150
+private const val DETECTION_DELAY: Long = 150 // milliseconds
 
 class AutoLaunchReceiver : BroadcastReceiver() {
   override fun onReceive(context: Context, intent: Intent) {
     if (AUTO_LAUNCH && intent.action == UsbManager.ACTION_USB_DEVICE_ATTACHED) {
       val device = intent.getParcelableExtra<UsbDevice>(UsbManager.EXTRA_DEVICE)
-      Log.v(TAG, device?.productName + " connected.")
+      Log.d(javaClass.simpleName, "${device?.productName} connected.")
       val deviceName = device?.let { getName(it) }
 
       val launchActivity = {
         ControllerHelper.getGameControllerIds().run {
           //check if the attached usb device is a controller
           forEach { deviceId ->
-            Log.d(TAG, deviceName + " ?= " + InputDevice.getDevice(deviceId).name)
+            Log.d(javaClass.simpleName, "$deviceName ?= ${InputDevice.getDevice(deviceId).name}")
 
             if (deviceName == InputDevice.getDevice(deviceId).name) {
               //if it is a controller start activity
-              Log.v(TAG, "Controller plugged in, starting activity")
+              Log.v(javaClass.simpleName, "Controller plugged in, starting activity")
               val startIntent =
                 context.packageManager.getLaunchIntentForPackage(context.packageName)
 

@@ -1,9 +1,12 @@
 package com.spacelynx.controllerhub.viewmodels
 
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.hardware.input.InputManager
-import android.text.SpannableStringBuilder
+import android.text.Spanned
 import android.util.Log
 import android.view.InputDevice
 import androidx.annotation.DrawableRes
@@ -13,14 +16,12 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 import com.spacelynx.controllerhub.utils.ControllerHelper
 
 class ContextBarViewModel : ViewModel(), InputManager.InputDeviceListener {
-  val contextIcon: MutableLiveData<SpannableStringBuilder> by lazy {
-    MutableLiveData<SpannableStringBuilder>()
+  val contextIcon: MutableLiveData<Spanned> by lazy {
+    MutableLiveData<Spanned>()
   }
 
   val action0text: MutableLiveData<String> by lazy {
@@ -69,12 +70,12 @@ class ContextBarViewModel : ViewModel(), InputManager.InputDeviceListener {
   }
 
   override fun onInputDeviceAdded(deviceId: Int) {
-    Log.d("InputDeviceListener", "InputDevice added, updating context icon: " + InputDevice.getDevice(deviceId)?.name)
+    Log.v("InputDeviceListener", "InputDevice added: ${InputDevice.getDevice(deviceId)?.name}, updating context icon.")
     updateContextIcon()
   }
 
   override fun onInputDeviceRemoved(deviceId: Int) {
-    Log.d("InputDeviceListener", "InputDevice removed, updating context icon.")
+    Log.v("InputDeviceListener", "InputDevice removed, updating context icon.")
     updateContextIcon()
   }
 
